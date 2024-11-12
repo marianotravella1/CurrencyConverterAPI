@@ -1,4 +1,6 @@
-﻿using Data.Repository.Interfaces;
+﻿using Common.Models;
+using Data.Entities;
+using Data.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +16,20 @@ namespace Data.Repository.Implementations
         {
             _context = context;
         }
+        public IEnumerable<User> GetAllUsers()
+        {
+            return _context.Users.ToList();
+        }
+        public void AddUser(User user)
+        {
+            _context.Users.Add(user);
+            _context.SaveChanges();
+        }
 
+        public User? AuthUser(CredentialsDTO credDto)
+        {
+            return _context.Users.FirstOrDefault(u => u.Username == credDto.Username && u.Password == credDto.Password);
+        }
 
     }
 }

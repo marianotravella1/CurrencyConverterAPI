@@ -9,6 +9,7 @@ namespace Data.Repository.Interfaces
 {
     public interface ICurrencyRepository
     {
-        
+        IEnumerable<Currency> GetAllCurrencies();
+        void AddCurrency(Currency currency);
     }
 }

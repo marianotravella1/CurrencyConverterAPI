@@ -15,6 +15,14 @@ namespace Data.Repository.Implementations
         {
             _context = context;
         }
-
+        public IEnumerable<Currency> GetAllCurrencies()
+        {
+            return _context.Currencies.ToList();
+        }
+        public void AddCurrency(Currency currency)
+        {
+            _context.Currencies.Add(currency);
+            _context.SaveChanges();
+        }
     }
 }
