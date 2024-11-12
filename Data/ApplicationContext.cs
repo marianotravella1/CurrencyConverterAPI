@@ -11,7 +11,7 @@ namespace Data
     public class ApplicationContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-        public DbSet<Currency> Coins { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<Conversion> ConversionHistory { get; set; }
 
