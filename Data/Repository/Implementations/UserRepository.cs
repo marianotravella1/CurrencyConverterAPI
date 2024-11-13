@@ -11,8 +11,8 @@ namespace Data.Repository.Implementations
 {
     public class UserRepository : IUserRepository
     {
-        ApplicationContext _context;
-        UserRepository(ApplicationContext context)
+        private CurrencyConverterContext _context;
+        public UserRepository(CurrencyConverterContext context)
         {
             _context = context;
         }

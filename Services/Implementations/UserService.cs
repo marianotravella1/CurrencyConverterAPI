@@ -1,4 +1,6 @@
-﻿using Data.Repository.Interfaces;
+﻿using Common.Models;
+using Data.Entities;
+using Data.Repository.Interfaces;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,5 +17,20 @@ namespace Services.Implementations
         {
             _userRepository = userRepository;
         }
+        public IEnumerable<User> GetAllUsers()
+        {
+            return _userRepository.GetAllUsers();
+        }
+        public void AddUser(UserForCreationDTO userForCreationDTO)
+        {
+           
+        }
+
+        public User? AuthUser(CredentialsDTO credentialsDTO) 
+        {
+            return _userRepository.AuthUser(credentialsDTO);
+        }
+
+
     }
 }
