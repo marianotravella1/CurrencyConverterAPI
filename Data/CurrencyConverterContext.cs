@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class ApplicationContext : DbContext
+    public class CurrencyConverterContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Currency> Currencies { get; set; }
@@ -16,14 +16,11 @@ namespace Data
         public DbSet<Conversion> ConversionHistory { get; set; }
 
 
-        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
+        public CurrencyConverterContext(DbContextOptions<CurrencyConverterContext> options) : base(options)
         {
 
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            
-        }
+        
     }
 }
