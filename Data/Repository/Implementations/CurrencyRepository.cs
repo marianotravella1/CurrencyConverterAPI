@@ -10,8 +10,8 @@ namespace Data.Repository.Implementations
 {
     public class CurrencyRepository : ICurrencyRepository
     {
-        private readonly ApplicationContext _context;
-        public CurrencyRepository(ApplicationContext context)
+        private readonly CurrencyConverterContext _context;
+        public CurrencyRepository(CurrencyConverterContext context)
         {
             _context = context;
         }
@@ -23,6 +23,10 @@ namespace Data.Repository.Implementations
         {
             _context.Currencies.Add(currency);
             _context.SaveChanges();
+        }
+        public Currency? GetCurrencyByCode(string code)
+        {
+            return _context.Currencies.FirstOrDefault(c => c.Code == code);
         }
     }
 }
