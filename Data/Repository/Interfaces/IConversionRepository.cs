@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace Data.Repository.Interfaces
 {
-    public interface ICurrencyRepository
+    public interface IConversionRepository
     {
-        IEnumerable<Currency> GetAllCurrencies();
-        void AddCurrency(Currency currency);
-        Currency? GetCurrencyByCode(string code);
+        IEnumerable<Conversion> GetConversionHistoryByUserId(int userId);
+        void AddConversion(Conversion conversion);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Common.Models;
 using Data.Entities;
+using Microsoft.CodeAnalysis.Operations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,9 @@ using System.Threading.Tasks;
 
 namespace Data.Repository.Interfaces
 {
-    public interface IUserRepository
+    public interface ISubscriptionRepository
     {
-        IEnumerable<User> GetAllUsers();
-        void AddUser(User user);
-        User? AuthUser(CredentialsDTO credDto);
-        User? GetUserById(int id);
+        IEnumerable<SubscriptionsForViewDTO> GetAllSubscriptions();
+        Subscription? GetSubscriptionByName(string name);
     }
 }
