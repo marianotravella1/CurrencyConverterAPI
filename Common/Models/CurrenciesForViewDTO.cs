@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Models
 {
-    public class CurrencyForCreationDTO
+    public class CurrenciesForViewDTO
     {
         public string Code { get; set; }
         public string Legend { get; set; }
