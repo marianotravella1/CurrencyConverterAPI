@@ -11,6 +11,7 @@ namespace Services.Interfaces
     public interface IUserService
     {
         IEnumerable<User> GetAllUsers();
+        User? GetUserById(int id);
         void AddUser(UserForCreationDTO userForCreationDTO);
         User? AuthUser(CredentialsDTO credentialsDTO);
     }
