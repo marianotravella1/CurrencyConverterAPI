@@ -13,7 +13,7 @@ namespace Common.Models
         [Required]
         public string Name { get; set; }
         [Required]
-        public string UserName { get; set; }
+        public string Username { get; set; }
         [Required]
         public string Password { get; set; }
         [Required]

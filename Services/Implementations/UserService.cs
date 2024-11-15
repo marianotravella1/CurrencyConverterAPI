@@ -27,7 +27,7 @@ namespace Services.Implementations
         {
             try
             {
-                if (_userRepository.GetAllUsers().All(u => u.Username != userForCreationDTO.UserName))
+                if (_userRepository.GetAllUsers().All(u => u.Username != userForCreationDTO.Username))
                 {
                     Subscription? sub = _subscriptionService.GetSubscriptionByName(userForCreationDTO.SubscriptionName);
 
@@ -38,8 +38,8 @@ namespace Services.Implementations
 
                     User newUser = new User()
                     {
-                        Name = userForCreationDTO.UserName,
-                        Username = userForCreationDTO.UserName,
+                        Name = userForCreationDTO.Username,
+                        Username = userForCreationDTO.Username,
                         Password = userForCreationDTO.Password,
                         Email = userForCreationDTO.Email,
                         Subscription = sub
@@ -47,7 +47,7 @@ namespace Services.Implementations
 
                     _userRepository.AddUser(newUser);
                 }
-                else throw new Exception($"The username {userForCreationDTO.UserName} already exists");
+                else throw new Exception($"The username {userForCreationDTO.Username} already exists");
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace Services.Implementations
 
         public User? GetUserById(int id)
         {
-            return _userRepository.GetUserById(id);
+            return _userRepository.GetAllUsers().FirstOrDefault(u => u.UserId == id);
         }
 
 

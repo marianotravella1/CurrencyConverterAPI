@@ -32,10 +32,7 @@ namespace Data.Repository.Implementations
             return _context.Users.FirstOrDefault(u => u.Username == credDto.Username && u.Password == credDto.Password);
         }
 
-        public User? GetUserById(int id)
-        {
-            return _context.Users.FirstOrDefault(u => u.UserId == id);
-        }
+        
 
     }
 }

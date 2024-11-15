@@ -13,6 +13,6 @@ namespace Data.Repository.Interfaces
         IEnumerable<User> GetAllUsers();
         void AddUser(User user);
         User? AuthUser(CredentialsDTO credDto);
-        User? GetUserById(int id);
+        
     }
 }
