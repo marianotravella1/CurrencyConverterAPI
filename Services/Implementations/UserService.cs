@@ -13,9 +13,11 @@ namespace Services.Implementations
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        public UserService(IUserRepository userRepository)
+        private readonly ISubscriptionService _subscriptionService;
+        public UserService(IUserRepository userRepository, ISubscriptionService subscriptionService)
         {
             _userRepository = userRepository;
+            _subscriptionService = subscriptionService;
         }
         public IEnumerable<User> GetAllUsers()
         {
@@ -23,6 +25,34 @@ namespace Services.Implementations
         }
         public void AddUser(UserForCreationDTO userForCreationDTO)
         {
+            try
+            {
+                if (_userRepository.GetAllUsers().All(u => u.Username != userForCreationDTO.UserName))
+                {
+                    Subscription? sub = _subscriptionService.GetSubscriptionByName(userForCreationDTO.SubscriptionName);
+
+                    if (sub == null)
+                    {
+                        throw new Exception("The selected subscription cannot be found");
+                    }
+
+                    User newUser = new User()
+                    {
+                        Name = userForCreationDTO.UserName,
+                        Username = userForCreationDTO.UserName,
+                        Password = userForCreationDTO.Password,
+                        Email = userForCreationDTO.Email,
+                        Subscription = sub
+                    };
+
+                    _userRepository.AddUser(newUser);
+                }
+                else throw new Exception($"The username {userForCreationDTO.UserName} already exists");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while creating a user: ", ex);
+            }
            
         }
 

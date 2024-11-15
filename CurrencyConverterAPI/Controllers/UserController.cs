@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Common.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 
@@ -20,5 +21,11 @@ namespace CurrencyConverterAPI.Controllers
             return Ok(_userService.GetAllUsers());
         }
 
+        [HttpPost]
+        public IActionResult AddUser([FromBody] UserForCreationDTO userForCreationDTO)
+        {
+            _userService.AddUser(userForCreationDTO);
+            return Created();
+        }
     }
 }
