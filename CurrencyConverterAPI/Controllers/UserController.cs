@@ -13,5 +13,12 @@ namespace CurrencyConverterAPI.Controllers
         {
             _userService = userService;
         }
+
+        [HttpGet]
+        public IActionResult GetAllUsers()
+        {
+            return Ok(_userService.GetAllUsers());
+        }
+
     }
 }

@@ -13,5 +13,18 @@ namespace CurrencyConverterAPI.Controllers
         {
             _currencyService = currencyService;
         }
+
+        [HttpGet]
+        public IActionResult GetAllCurrencies()
+        {
+            return Ok(_currencyService.GetAllCurrencies());
+        }
+
+        [HttpGet("{code}")]
+        public IActionResult GetCurrencyByCode([FromRoute] string code)
+        {
+            return Ok(_currencyService.GetCurrencyByCode(code));
+        }
+
     }
 }

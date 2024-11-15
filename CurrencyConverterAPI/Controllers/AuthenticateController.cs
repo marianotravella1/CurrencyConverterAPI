@@ -1,9 +1,7 @@
 ﻿using Common.Models;
 using Data.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Services.Implementations;
 using Services.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -51,8 +49,7 @@ namespace CurrencyConverterAPI.Controllers
               credentials);
 
 
-            return Ok(new JwtSecurityTokenHandler()
-                .WriteToken(jwtSecurityToken));
+            return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken) });
         }
     }
 }
