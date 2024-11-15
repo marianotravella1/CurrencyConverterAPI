@@ -31,6 +31,11 @@ namespace Services.Implementations
             return _userRepository.AuthUser(credentialsDTO);
         }
 
+        public User? GetUserById(int id)
+        {
+            return _userRepository.GetUserById(id);
+        }
+
 
     }
 }
