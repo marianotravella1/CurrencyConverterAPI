@@ -14,7 +14,7 @@ namespace Data.Entities
         [Key]
         public int SubscriptionId { get; set; }
         public string Name { get; set; }
-        public int ConversionLimit { get; set; }
+        public int? ConversionLimit { get; set; }
         public decimal Price { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace Data.Entities
         public User User { get; set; }
         public Currency SourceCurrency { get; set; }
         public Currency TargetCurrency { get; set; }
-        public DateTime ConversionDate { get; set; }
-        public double ConvertedAmount { get; set; }
+        public DateTime ConversionDate { get; set; } = DateTime.Now;
+        public decimal ConvertedAmount { get; set; }
     }
 }
