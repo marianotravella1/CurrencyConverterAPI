@@ -11,8 +11,11 @@ namespace Services.Interfaces
     public interface IConversionService
     {
         IEnumerable<Conversion> GetConversionHistoryByUserId(int userId);
-        void AddConversion(int userId, ConversionForCreationDTO conversionDTO);
-        decimal ConvertCurrency(int userId, ConversionForCreationDTO conversionDTO);
+        decimal? Convert(int userId, ConversionForAddDTO conversionDTO);
+        int GetConversionsNumberById(int id);
+        bool CanConvert(User user);
+
+
 
     }
 }

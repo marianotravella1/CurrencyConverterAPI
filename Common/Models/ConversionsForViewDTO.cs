@@ -12,5 +12,6 @@ namespace Common.Models
         public int SourceCurrencyId { get; set; }
         public int TargetCurrencyId { get; set; }
         public decimal ConvertedAmount { get; set; }
+        public decimal ConverterOutput { get; set; }
     }
 }

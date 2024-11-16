@@ -1,6 +1,7 @@
 ﻿using Common.Models;
 using Data.Entities;
 using Data.Repository.Interfaces;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -25,29 +26,57 @@ namespace Services.Implementations
         {
             return _conversionRepository.GetConversionHistoryByUserId(userId);
         }
-        public void AddConversion(int userId, ConversionForCreationDTO conversionDTO)
+
+        public int GetConversionsNumberById(int id)
         {
-            Conversion newConversion = new Conversion
+            int currentMonth = DateTime.Now.Month;
+            int currentYear = DateTime.Now.Year;
+
+            return _conversionRepository.GetConversionHistoryByUserId(id)
+                .Where(c => c.ConversionDate.Month == currentMonth && c.ConversionDate.Year == currentYear)
+                .Count();
+        }
+        public bool CanConvert(User user)
+        {
+            int conversionsMadeThisMonth = GetConversionsNumberById(user.UserId);
+            int? maxConversionsPosible = user.Subscription.ConversionLimit;
+            
+            return (conversionsMadeThisMonth < maxConversionsPosible | maxConversionsPosible == null);
+        }
+        public decimal? Convert(int userId, ConversionForAddDTO conversionDTO)
+        {
+            User user = _userService.GetUserById(userId)!;
+
+            if (CanConvert(user))
             {
-                User = _userService.GetUserById(userId)!,
-                SourceCurrency = _currencyService.GetCurrencyByCode(conversionDTO.SourceCurrencyCode)!,
-                TargetCurrency = _currencyService.GetCurrencyByCode(conversionDTO.TargetCurrencyCode)!,
-                ConvertedAmount = conversionDTO.ConvertedAmount,
-            };
+                Currency sourceCurrency = _currencyService.GetCurrencyByCode(conversionDTO.SourceCurrencyCode)!;
+                Currency targetCurrency = _currencyService.GetCurrencyByCode(conversionDTO.TargetCurrencyCode)!;
+                decimal convertedAmount = conversionDTO.ConvertedAmount;
 
-            _conversionRepository.AddConversion(newConversion);
+                decimal convertedOutput = convertedAmount * (targetCurrency.ConvertibilityIndex / sourceCurrency.ConvertibilityIndex);
+
+                Conversion newConversion = new Conversion
+                {
+                    User = user,
+                    SourceCurrency = sourceCurrency,
+                    TargetCurrency = targetCurrency,
+                    ConvertedAmount = convertedAmount,
+                    ConvertedOutput = convertedOutput,
+                };
+
+                _conversionRepository.AddConversion(newConversion);
+
+                return convertedOutput;
+            }
+            else
+            {
+                return null;
+            }
         }
-        public decimal ConvertCurrency(int userId, ConversionForCreationDTO conversionDTO)
-        {
-            decimal sourceCurrencyCI = _currencyService.GetCurrencyByCode(conversionDTO.SourceCurrencyCode)!.ConvertibilityIndex;
-            decimal targetCurrencyCI = _currencyService.GetCurrencyByCode(conversionDTO.TargetCurrencyCode)!.ConvertibilityIndex;
-            decimal amount = conversionDTO.ConvertedAmount;
 
-            decimal convertedResult = amount * (targetCurrencyCI / sourceCurrencyCI);
 
-            AddConversion(userId, conversionDTO);
 
-            return convertedResult;
-        }
+        
+        
     }
 }

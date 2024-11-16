@@ -28,11 +28,13 @@ namespace CurrencyConverterAPI.Controllers
 
         [HttpPost("CalculateConversion")]
         [Authorize]
-        public IActionResult CalculateConversion([FromBody] ConversionForCreationDTO calculatorDTO)
+        public IActionResult CalculateConversion([FromBody] ConversionForAddDTO conversionDTO)
         {
             int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
 
-            return Ok(_conversionService.ConvertCurrency(userId, calculatorDTO));
+            return Ok(_conversionService.Convert(userId, conversionDTO));
         }
+
+        
     }
 }

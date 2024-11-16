@@ -18,5 +18,6 @@ namespace Data.Entities
         public Currency TargetCurrency { get; set; }
         public DateTime ConversionDate { get; set; } = DateTime.Now;
         public decimal ConvertedAmount { get; set; }
+        public decimal ConvertedOutput { get; set; }
     }
 }

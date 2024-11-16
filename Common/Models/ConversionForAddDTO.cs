@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Common.Models
 {
-    public class ConversionForCreationDTO
+    public class ConversionForAddDTO
     {
         public string SourceCurrencyCode { get; set; }
         public string TargetCurrencyCode { get; set; }
         public decimal ConvertedAmount { get; set; }
-
     }
 }
