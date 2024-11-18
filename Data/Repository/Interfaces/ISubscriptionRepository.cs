@@ -11,7 +11,6 @@ namespace Data.Repository.Interfaces
 {
     public interface ISubscriptionRepository
     {
-        IEnumerable<SubscriptionsForViewDTO> GetAllSubscriptions();
-        Subscription? GetSubscriptionByName(string name);
+        IEnumerable<Subscription> GetAllSubscriptions();
     }
 }

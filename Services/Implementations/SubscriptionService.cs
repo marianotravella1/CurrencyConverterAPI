@@ -18,13 +18,13 @@ namespace Services.Implementations
             _subscriptionRepository = subscriptionRepository;
         }
 
-        public IEnumerable<SubscriptionsForViewDTO> GetAllSubscriptions()
+        public IEnumerable<Subscription> GetAllSubscriptions()
         {
             return _subscriptionRepository.GetAllSubscriptions();
         }
-        public Subscription? GetSubscriptionByName(string name)
+        public Subscription? GetSubscriptionById(int id)
         {
-            return _subscriptionRepository.GetSubscriptionByName(name);
+            return _subscriptionRepository.GetAllSubscriptions().FirstOrDefault(s => s.SubscriptionId == id);
         }
     }
 }

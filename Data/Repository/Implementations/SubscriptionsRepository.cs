@@ -17,19 +17,10 @@ namespace Data.Repository.Implementations
             _context = context;
         }
 
-        public IEnumerable<SubscriptionsForViewDTO> GetAllSubscriptions()
+        public IEnumerable<Subscription?> GetAllSubscriptions()
         {
-            return _context.Subscriptions.Select(s => new SubscriptionsForViewDTO()
-            {
-                Name = s.Name,
-                ConversionLimit = s.ConversionLimit,
-                Price = s.Price,
-            });
+            return _context.Subscriptions;
         }
 
-        public Subscription? GetSubscriptionByName(string name)
-        {
-            return _context.Subscriptions.FirstOrDefault(s => s.Name == name);
-        }
     }
 }

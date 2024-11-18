@@ -10,7 +10,7 @@ namespace Services.Interfaces
 {
     public interface ISubscriptionService
     {
-        IEnumerable<SubscriptionsForViewDTO> GetAllSubscriptions();
-        Subscription? GetSubscriptionByName(string name);
+        IEnumerable<Subscription> GetAllSubscriptions();
+        Subscription? GetSubscriptionById(int id);
     }
 }

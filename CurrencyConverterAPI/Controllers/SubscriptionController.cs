@@ -20,10 +20,10 @@ namespace CurrencyConverterAPI.Controllers
             return Ok(_subscriptionService.GetAllSubscriptions());
         }
 
-        [HttpGet("{name}")]
-        public IActionResult GetSubscriptionByName([FromRoute] string name)
+        [HttpGet("{id}")]
+        public IActionResult GetSubscriptionById([FromRoute] int id)
         {
-            return Ok(_subscriptionService.GetSubscriptionByName(name));
+            return Ok(_subscriptionService.GetSubscriptionById(id));
         }
     }
 }
