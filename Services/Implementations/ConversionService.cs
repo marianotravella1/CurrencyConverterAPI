@@ -49,8 +49,8 @@ namespace Services.Implementations
 
             if (CanConvert(user))
             {
-                Currency sourceCurrency = _currencyService.GetCurrencyByCode(conversionDTO.SourceCurrencyCode)!;
-                Currency targetCurrency = _currencyService.GetCurrencyByCode(conversionDTO.TargetCurrencyCode)!;
+                Currency sourceCurrency = _currencyService.GetCurrencyById(conversionDTO.SourceCurrencyId)!;
+                Currency targetCurrency = _currencyService.GetCurrencyById(conversionDTO.TargetCurrencyId)!;
                 decimal convertedAmount = conversionDTO.ConvertedAmount;
 
                 decimal convertedOutput = convertedAmount * (targetCurrency.ConvertibilityIndex / sourceCurrency.ConvertibilityIndex);

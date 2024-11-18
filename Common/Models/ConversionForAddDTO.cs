@@ -8,8 +8,8 @@ namespace Common.Models
 {
     public class ConversionForAddDTO
     {
-        public string SourceCurrencyCode { get; set; }
-        public string TargetCurrencyCode { get; set; }
+        public int SourceCurrencyId { get; set; }
+        public int TargetCurrencyId { get; set; }
         public decimal ConvertedAmount { get; set; }
     }
 }

@@ -22,7 +22,8 @@ namespace Data.Repository.Implementations
                 .Where(c => c.User.UserId == userId)
                 .Include(u => u.User)
                 .Include(c => c.SourceCurrency)
-                .Include(c => c.TargetCurrency);
+                .Include(c => c.TargetCurrency)
+                .OrderByDescending(c => c.ConversionDate);
         }
 
         public void AddConversion(Conversion conversion)
