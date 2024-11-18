@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Common.Enums;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Entities
@@ -12,5 +13,6 @@ namespace Data.Entities
         public string Legend { get; set; }
         public string Symbol { get; set; }
         public decimal ConvertibilityIndex { get; set; }
+        public CurrencyStatus Status { get; set; } = CurrencyStatus.active;
     }
 }
