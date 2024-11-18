@@ -13,25 +13,49 @@ namespace Services.Implementations
             _currencyRepository = currencyRepository;
         }
 
-        public IEnumerable<CurrenciesForViewDTO> GetAllCurrencies()
+        public IEnumerable<Currency> GetAllCurrencies()
         {
-            return _currencyRepository.GetAllCurrencies()
-                .Select(c => new CurrenciesForViewDTO
+            return _currencyRepository.GetAllCurrencies();
+        }
+
+        public void CreateCurrency(CurrencyForCreationDTO currencyDTO)
+        {
+            try
+            {
+                if (_currencyRepository.GetAllCurrencies().All(c => c.Code != currencyDTO.Code))
                 {
-                    Code = c.Code,
-                    Legend = c.Legend,
-                    Symbol = c.Symbol,
-                    ConvertibilityIndex = c.ConvertibilityIndex,
-                }).ToList();
+                    Currency newCurrency = new Currency()
+                    {
+                        Code = currencyDTO.Code,
+                        Legend = currencyDTO.Legend,
+                        Symbol = currencyDTO.Symbol,
+                        ConvertibilityIndex = currencyDTO.ConvertibilityIndex,
+                    };
+                    _currencyRepository.AddCurrency(newCurrency);
+                }
+                else
+                {
+                    throw new Exception($"There is already a currency with the code '{currencyDTO.Code}'.");
+                }
+            }
+            catch
+            {
+                throw new Exception("An error occurred while creating a currency");
+            }
+            
+        }
+        public Currency? GetCurrencyById(int id)
+        {
+            return _currencyRepository.GetCurrencyById(id);
+        }
+        public void UpdateCurrencyCIById(int id, decimal ci)
+        {
+            _currencyRepository.UpdateCurrencyCIById(id, ci);
         }
 
-        public void AddCurrency(Currency currency)
+        public void DeleteCurrencyById(int id)
         {
-
-        }
-        public Currency? GetCurrencyByCode(string code)
-        {
-            return _currencyRepository.GetCurrencyByCode(code);
+            _currencyRepository.DeleteCurrencyById(id);
         }
     }
 }

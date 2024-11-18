@@ -10,8 +10,10 @@ namespace Services.Interfaces
 {
     public interface ICurrencyService
     {
-        IEnumerable<CurrenciesForViewDTO> GetAllCurrencies();
-        void AddCurrency(Currency currency);
-        Currency? GetCurrencyByCode(string code);
+        IEnumerable<Currency> GetAllCurrencies();
+        void CreateCurrency(CurrencyForCreationDTO currencyDTO);
+        Currency? GetCurrencyById(int id);
+        void UpdateCurrencyCIById(int id, decimal ci);
+        void DeleteCurrencyById(int id);
     }
 }

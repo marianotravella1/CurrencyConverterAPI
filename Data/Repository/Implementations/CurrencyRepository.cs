@@ -1,4 +1,5 @@
-﻿using Data.Entities;
+﻿using Common.Enums;
+using Data.Entities;
 using Data.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -24,9 +25,21 @@ namespace Data.Repository.Implementations
             _context.Currencies.Add(currency);
             _context.SaveChanges();
         }
-        public Currency? GetCurrencyByCode(string code)
+        public Currency? GetCurrencyById(int id)
         {
-            return _context.Currencies.FirstOrDefault(c => c.Code == code);
+            return _context.Currencies.Single(c => c.CurrencyId == id);
+        }
+
+        public void UpdateCurrencyCIById(int id, decimal ci)
+        {
+            _context.Currencies.Single(c => c.CurrencyId == id).ConvertibilityIndex = ci;
+            _context.SaveChanges();
+        }
+
+        public void DeleteCurrencyById(int id)
+        {
+            _context.Currencies.Single(c => c.CurrencyId == id).Status = CurrencyStatus.deleted;
+            _context.SaveChanges();
         }
     }
 }
