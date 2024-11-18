@@ -32,7 +32,14 @@ namespace Data.Repository.Implementations
             return _context.Users.FirstOrDefault(u => u.Username == credDto.Username && u.Password == credDto.Password);
         }
 
-        
+        public void UpdateUserSubscription(int userId, Subscription subscription)
+        {
+            var user = _context.Users.Include(u => u.Subscription).SingleOrDefault(u => u.UserId == userId);
+
+
+            user.Subscription = subscription;
+            _context.SaveChanges();
+        }
 
     }
 }

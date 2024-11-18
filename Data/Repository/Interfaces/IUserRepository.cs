@@ -13,6 +13,7 @@ namespace Data.Repository.Interfaces
         IEnumerable<User> GetAllUsers();
         void AddUser(User user);
         User? AuthUser(CredentialsDTO credDto);
+        void UpdateUserSubscription(int userId, Subscription subscription);
         
     }
 }

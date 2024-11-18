@@ -37,5 +37,38 @@ namespace CurrencyConverterAPI.Controllers
             return Ok(_userService.GetUserById(userId));
         }
 
+        [HttpGet("{id}")]
+        public IActionResult Get([FromRoute] int id)
+        {
+            return Ok(_userService.GetUserById(id));
+        }
+
+
+
+        [Authorize]
+        [HttpPut("{subscriptionId}")]
+        public IActionResult UpdateSubscription([FromRoute]int subscriptionId)
+        {
+            int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
+
+            try
+            {
+                _userService.UpdateUser(userId, subscriptionId);
+                return Ok(new { message = "Subscription updated successfully." });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(new { error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred.", details = ex.Message });
+            }
+        }
+
     }
 }

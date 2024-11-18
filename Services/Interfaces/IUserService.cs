@@ -14,5 +14,6 @@ namespace Services.Interfaces
         User? GetUserById(int id);
         void AddUser(UserForCreationDTO userForCreationDTO);
         User? AuthUser(CredentialsDTO credentialsDTO);
+        void UpdateUser(int userId, int subscriptionId);
     }
 }

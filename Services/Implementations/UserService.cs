@@ -25,13 +25,14 @@ namespace Services.Implementations
         }
         public void AddUser(UserForCreationDTO userForCreationDTO)
         {
-            try
+            try 
+
             {
                 if (_userRepository.GetAllUsers().All(u => u.Username != userForCreationDTO.Username))
                 {
-                    Subscription? sub = _subscriptionService.GetSubscriptionByName(userForCreationDTO.SubscriptionName);
+                    Subscription? subs = _subscriptionService.GetSubscriptionById(userForCreationDTO.SubscriptionId);
 
-                    if (sub == null)
+                    if (subs == null)
                     {
                         throw new Exception("The selected subscription cannot be found");
                     }
@@ -42,7 +43,7 @@ namespace Services.Implementations
                         Username = userForCreationDTO.Username,
                         Password = userForCreationDTO.Password,
                         Email = userForCreationDTO.Email,
-                        Subscription = sub
+                        Subscription = subs
                     };
 
                     _userRepository.AddUser(newUser);
@@ -66,6 +67,15 @@ namespace Services.Implementations
             return _userRepository.GetAllUsers().FirstOrDefault(u => u.UserId == id);
         }
 
+        public void UpdateUser(int userId, int subscriptionId)
+        {
+            Subscription? subscription = _subscriptionService.GetSubscriptionById(subscriptionId);
+            Console.WriteLine(subscription);
+            if (subscription == null)
+                throw new ArgumentException($"Subscription not found.{subscription}");
 
+            // Actualizar la suscripción del usuario
+            _userRepository.UpdateUserSubscription(userId, subscription);
+        }
     }
 }
