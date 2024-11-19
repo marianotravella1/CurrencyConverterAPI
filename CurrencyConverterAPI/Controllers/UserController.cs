@@ -48,13 +48,21 @@ namespace CurrencyConverterAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult Get([FromRoute] int id)
         {
-            return Ok(_userService.GetUserById(id));
+            try
+            {
+                return Ok(_userService.GetUserById(id));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
         }
 
 
 
         [Authorize]
-        [HttpPut("{subscriptionId}")]
+        [HttpPut("Upgrade/{subscriptionId}")]
         public IActionResult UpdateSubscription([FromRoute]int subscriptionId)
         {
             int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
@@ -68,14 +76,7 @@ namespace CurrencyConverterAPI.Controllers
             {
                 return BadRequest(new { error = ex.Message });
             }
-            catch (InvalidOperationException ex)
-            {
-                return NotFound(new { error = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { error = "An unexpected error occurred.", details = ex.Message });
-            }
+            
         }
 
     }

@@ -32,7 +32,15 @@ namespace CurrencyConverterAPI.Controllers
         {
             int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
 
-            return Ok(_conversionService.Convert(userId, conversionDTO));
+            try
+            {
+                return Ok(_conversionService.Convert(userId, conversionDTO));   
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
         }
 
         

@@ -24,7 +24,15 @@ namespace CurrencyConverterAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetCurrencyById([FromRoute] int id)
         {
-            return Ok(_currencyService.GetCurrencyById(id));
+            try
+            {
+                return Ok(_currencyService.GetCurrencyById(id));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
         }
 
         [HttpPut("UpdateCI/{id}")]

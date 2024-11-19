@@ -23,7 +23,15 @@ namespace CurrencyConverterAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetSubscriptionById([FromRoute] int id)
         {
-            return Ok(_subscriptionService.GetSubscriptionById(id));
+            try
+            {
+                return Ok(_subscriptionService.GetSubscriptionById(id));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
         }
     }
 }
