@@ -18,7 +18,7 @@ namespace Data.Repository.Implementations
         }
         public IEnumerable<Currency> GetAllCurrencies()
         {
-            return _context.Currencies.ToList();
+            return _context.Currencies.Where(c => c.Status == CurrencyStatus.active).ToList();
         }
         public void AddCurrency(Currency currency)
         {

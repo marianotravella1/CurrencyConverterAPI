@@ -26,9 +26,17 @@ namespace CurrencyConverterAPI.Controllers
         [HttpPost("SignUp")]
         public IActionResult AddUser([FromBody] UserForCreationDTO userForCreationDTO)
         {
-            _userService.AddUser(userForCreationDTO);
-            return Created();
+            try
+            {
+                _userService.AddUser(userForCreationDTO);
+                return Created();
+            }
+            catch
+            {   
+                return BadRequest();
+            }
         }
+
         [Authorize]
         [HttpGet("UserDetails")]
         public IActionResult GetUserDetails()
